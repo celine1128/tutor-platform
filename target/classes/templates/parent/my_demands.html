@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header('我的需求')"></head>
+<body>
+<th:block th:replace="fragments/header :: header"></th:block>
+<h2>我发布的需求</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>科目</th><th>年级</th><th>价格</th><th>描述</th><th>状态</th><th>发布时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="d : ${demands}">
+            <td th:text="${d.subject}"></td>
+            <td th:text="${d.grade}"></td>
+            <td th:text="${d.price}"></td>
+            <td th:text="${d.description}"></td>
+            <td>
+                <span th:if="${d.status == 0}" class="badge bg-warning">待接单</span>
+                <span th:if="${d.status == 1}" class="badge bg-success">已接单</span>
+            </td>
+            <td th:text="${#temporals.format(d.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+    </tbody>
+</table>
+<a th:href="@{/parent/demand/form}" class="btn btn-primary">+ 发布新需求</a>
+<th:block th:replace="fragments/footer"></th:block>
