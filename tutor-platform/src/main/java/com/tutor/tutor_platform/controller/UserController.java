@@ -2,6 +2,7 @@ package com.tutor.tutor_platform.controller;
 
 import com.tutor.tutor_platform.entity.User;
 import com.tutor.tutor_platform.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,6 @@ public class UserController {
 
     /**
      * 用户注册接口
-     * 访问地址: POST http://localhost:8080/api/user/register
-     * 请求体示例: {"phone":"13800138000","password":"123456","role":"STUDENT","nickname":"张三"}
      */
     @PostMapping("/register")
     public String register(@RequestBody User user) {
@@ -37,12 +36,10 @@ public class UserController {
     }
     
     /**
-     * 用户登录接口
-     * 访问地址: POST http://localhost:8080/api/user/login
-     * 请求体示例: {"phone":"13800138000","password":"123456"}
+     * 用户登录接口（保存 Session）
      */
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, String> loginInfo) {
+    public Map<String, Object> login(@RequestBody Map<String, String> loginInfo, HttpSession session) {
         String phone = loginInfo.get("phone");
         String password = loginInfo.get("password");
         
@@ -50,6 +47,9 @@ public class UserController {
         
         Map<String, Object> result = new HashMap<>();
         if (user != null) {
+            // 登录成功，将用户信息存入 Session
+            session.setAttribute("loginUser", user);
+            
             result.put("success", true);
             result.put("message", "登录成功！");
             result.put("userId", user.getId());
@@ -60,6 +60,41 @@ public class UserController {
             result.put("success", false);
             result.put("message", "登录失败，手机号或密码错误！");
         }
+        return result;
+    }
+    
+    /**
+     * 获取当前登录用户信息（需要登录）
+     */
+    @GetMapping("/currentUser")
+    public Map<String, Object> getCurrentUser(HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        
+        Map<String, Object> result = new HashMap<>();
+        if (user != null) {
+            result.put("success", true);
+            result.put("userId", user.getId());
+            result.put("phone", user.getPhone());
+            result.put("role", user.getRole());
+            result.put("nickname", user.getNickname());
+        } else {
+            result.put("success", false);
+            result.put("message", "未登录");
+        }
+        return result;
+    }
+    
+    /**
+     * 退出登录（清除 Session）
+     */
+    @PostMapping("/logout")
+    public Map<String, Object> logout(HttpSession session) {
+        session.removeAttribute("loginUser");
+        session.invalidate();  // 使 Session 失效
+        
+        Map<String, Object> result = new HashMap<>();
+        result.put("success", true);
+        result.put("message", "退出成功！");
         return result;
     }
 }
