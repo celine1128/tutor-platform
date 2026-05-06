@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af19ab04-7e4f-435d-9b5c-f36523642d0a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/ParentUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/TutorDemand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/mapper/ParentUserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/mapper/TutorDemandMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/controller/ParentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/controller/ParentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/Demand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/Demand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tutorplatform/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/structure.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/structure.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/teacher/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/teacher/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/结构清单.txt" beforeDir="false" afterPath="$PROJECT_DIR$/结构清单.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +41,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.TutorPlatformApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "tim__feature__frotend__ui",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
