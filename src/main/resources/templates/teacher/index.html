@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('首页 - 家教管理平台')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container mt-5 text-center">
+    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold text-primary mb-3">欢迎来到校园家教平台</h1>
+            <p class="col-md-8 mx-auto fs-4 text-muted">
+                连接优质大学生老师与有需求的家长，让辅导更简单、更透明。
+            </p>
+            <div class="mt-4" th:if="${session.user == null}">
+                <a th:href="@{/register}" class="btn btn-primary btn-lg px-4 me-2">免费注册</a>
+                <a th:href="@{/login}" class="btn btn-outline-secondary btn-lg px-4">立即登录</a>
+            </div>
+            <div class="mt-4" th:if="${session.user != null}">
+                <a th:if="${session.user.role == 'parent'}" th:href="@{/parent/demand/form}" class="btn btn-success btn-lg px-4">发布新需求</a>
+                <a th:if="${session.user.role == 'teacher'}" th:href="@{/teacher/demands}" class="btn btn-info btn-lg px-4 text-white">去大厅接单</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer"></th:block>
+</body>
+</html>
