@@ -30,6 +30,11 @@ public class TeacherController {
         return "teacher/available_demands";
     }
 
+    @GetMapping("/demands")
+    public String demands() {
+        return "redirect:/teacher/available";
+    }
+
     @PostMapping("/accept")
     public String acceptDemand(@RequestParam Long demandId, HttpSession session) {
         User teacher = (User) session.getAttribute("user");

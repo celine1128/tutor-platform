@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header(title)">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:replace="${title}">家教管理平台</title>
+    <title th:text="${title}">家教管理平台</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; } /* 全局浅灰背景，让卡片更立体 */
+    </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="/">家教管理平台</a>
-        <div class="collapse navbar-collapse">
+        <a class="navbar-brand fw-bold" th:href="@{/}">🎓 家教管理平台</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" th:href="@{/order/list}">订单列表</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/logout}">退出登录</a></li>
+                <li class="nav-item" th:if="${session.user != null and session.user.role == 'parent'}">
+                    <a class="nav-link" th:href="@{/parent/demand/form}">发布需求</a>
+                </li>
+                <li class="nav-item" th:if="${session.user != null and session.user.role == 'parent'}">
+                    <a class="nav-link" th:href="@{/parent/demand/list}">我的需求</a>
+                </li>
+                <li class="nav-item" th:if="${session.user != null and session.user.role == 'teacher'}">
+                    <a class="nav-link" th:href="@{/teacher/demands}">需求大厅</a>
+                </li>
+                <li class="nav-item" th:if="${session.user != null}">
+                    <a class="nav-link" th:href="@{/order/list}">我的订单</a>
+                </li>
+                <li class="nav-item" th:if="${session.user != null}">
+                    <a class="nav-link text-warning" th:href="@{/logout}" th:text="'退出 (' + ${session.user.nickname} + ')'">退出登录</a>
+                </li>
+                <li class="nav-item" th:if="${session.user == null}">
+                    <a class="nav-link" th:href="@{/login}">登录 / 注册</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container mt-4">
+</body>
+</html>

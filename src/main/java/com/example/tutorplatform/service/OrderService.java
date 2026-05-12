@@ -50,7 +50,7 @@ public class OrderService {
     public List<Order> getOrdersByParentId(Long parentId) {
         LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Order::getParentId, parentId)
-               .orderByDesc(Order::getCreateTime);
+                .orderByDesc(Order::getCreateTime);
         return orderMapper.selectList(wrapper);
     }
 
@@ -58,7 +58,7 @@ public class OrderService {
     public List<Order> getOrdersByTeacherId(Long teacherId) {
         LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Order::getTeacherId, teacherId)
-               .orderByDesc(Order::getCreateTime);
+                .orderByDesc(Order::getCreateTime);
         return orderMapper.selectList(wrapper);
     }
 

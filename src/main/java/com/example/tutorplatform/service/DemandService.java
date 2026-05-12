@@ -23,7 +23,7 @@ public class DemandService {
     public List<Demand> getByParentId(Long parentId) {
         LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Demand::getParentId, parentId)
-               .orderByDesc(Demand::getCreateTime);
+                .orderByDesc(Demand::getCreateTime);
         return demandMapper.selectList(wrapper);
     }
 
@@ -31,7 +31,7 @@ public class DemandService {
     public List<Demand> getAvailable() {
         LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Demand::getStatus, 0)
-               .orderByDesc(Demand::getCreateTime);
+                .orderByDesc(Demand::getCreateTime);
         return demandMapper.selectList(wrapper);
     }
 

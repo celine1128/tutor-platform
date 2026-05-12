@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header('发布需求')"></head>
+<head th:replace="fragments/header :: head('发布需求')"></head>
 <body>
-<th:block th:replace="fragments/header :: header"></th:block>
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">发布新家教需求</div>
-            <div class="card-body">
-                <form method="post" th:action="@{/parent/demand/publish}">
-                    <div class="mb-3">
-                        <label>科目</label>
-                        <input type="text" name="subject" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label>年级</label>
-                        <input type="text" name="grade" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>价格（元/小时）</label>
-                        <input type="number" name="price" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>详细描述</label>
-                        <textarea name="description" rows="3" class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">发布</button>
-                    <a th:href="@{/parent/demand/list}" class="btn btn-secondary">我的需求</a>
-                </form>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white fw-bold">发布新家教需求</div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/parent/demand/publish}">
+                        <div class="mb-3">
+                            <label class="form-label">科目</label>
+                            <input type="text" name="subject" class="form-control" placeholder="例如：高一数学" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">年级</label>
+                            <input type="text" name="grade" class="form-control" placeholder="例如：高一">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">价格（元/小时）</label>
+                            <input type="number" name="price" class="form-control" placeholder="例如：100">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">详细描述</label>
+                            <textarea name="description" rows="3" class="form-control" placeholder="请填写具体要求，如：希望老师有耐心..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary px-4">发布需求</button>
+                            <a th:href="@{/parent/demand/list}" class="btn btn-outline-secondary">返回列表</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <th:block th:replace="fragments/footer"></th:block>
+</body>
+</html>

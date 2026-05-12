@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("order")
+@TableName("tutor_order")
 public class Order {
     @TableId(type = IdType.AUTO)
     private Long id;
