@@ -24,7 +24,7 @@ CREATE TABLE `demand` (
 );
 
 -- 订单表
-CREATE TABLE `order` (
+CREATE TABLE `tutor_order` (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
   `demand_id` bigint NOT NULL,
   `teacher_id` bigint NOT NULL,
