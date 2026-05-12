@@ -1,202 +1,231 @@
 卷 Data 的文件夹 PATH 列表
 卷序列号为 1044-7015
 D:.
-│  .gitignore
-│  db.sql
-│  README.md
-│  Test.java
-│  结构清单.txt
-│  
-├─.idea
-│  │  compiler.xml
-│  │  dataSources.local.xml
-│  │  dataSources.xml
-│  │  misc.xml
-│  │  vcs.xml
-│  │  workspace.xml
-│  │  
-│  └─dataSources
-│      │  a9f08e79-e42b-4f7d-8923-cf1d27b9952e.xml
-│      │  data_sources_history.xml
-│      │  
-│      └─a9f08e79-e42b-4f7d-8923-cf1d27b9952e
-│          └─storage_v2
-│              └─_src_
-│                  └─schema
-│                          information_schema.FNRwLQ.meta
-│                          mysql.osA4Bg.meta
-│                          performance_schema.kIw0nw.meta
-│                          sys.zb4BAA.meta
-│                          
-├─.vscode
-│      settings.json
-│      
-├─docs
-│  └─plan
-│          项目计划书.md
-│          
-├─src
-│  └─main
-│      ├─java
-│      │  └─com
-│      │      └─example
-│      │          └─tutorplatform
-│      │              │  TutorPlatformApplication.java
-│      │              │  
-│      │              ├─config
-│      │              │      WebConfig.java
-│      │              │      
-│      │              ├─controller
-│      │              │      AuthController.java
-│      │              │      OrderController.java
-│      │              │      ParentController.java
-│      │              │      TeacherController.java
-│      │              │      
-│      │              ├─entity
-│      │              │      Demand.java
-│      │              │      Order.java
-│      │              │      User.java
-│      │              │      
-│      │              ├─interceptor
-│      │              │      LoginInterceptor.java
-│      │              │      
-│      │              ├─mapper
-│      │              │      DemandMapper.java
-│      │              │      OrderMapper.java
-│      │              │      UserMapper.java
-│      │              │      
-│      │              └─service
-│      │                      DemandService.java
-│      │                      OrderService.java
-│      │                      UserService.java
-│      │                      
-│      └─resources
-│          │  application.properties
-│          │  structure.txt
-│          │  
-│          └─templates
-│              │  index.html
-│              │  login.html
-│              │  register.html
-│              │  
-│              ├─fragments
-│              │      footer.html
-│              │      header.html
-│              │      
-│              ├─order
-│              │      order_list.html
-│              │      
-│              ├─parent
-│              │      demand_form.html
-│              │      my_demands.html
-│              │      
-│              └─teacher
-│                      available_demands.html
-│                      
-├─target
-│  ├─classes
-│  │  │  application.properties
-│  │  │  
-│  │  ├─com
-│  │  │  └─example
-│  │  │      └─tutorplatform
-│  │  │          │  TutorPlatformApplication.class
-│  │  │          │  
-│  │  │          ├─config
-│  │  │          │      WebConfig.class
-│  │  │          │      
-│  │  │          ├─controller
-│  │  │          │      AuthController.class
-│  │  │          │      OrderController.class
-│  │  │          │      ParentController.class
-│  │  │          │      TeacherController.class
-│  │  │          │      
-│  │  │          ├─entity
-│  │  │          │      Demand.class
-│  │  │          │      Order.class
-│  │  │          │      User.class
-│  │  │          │      
-│  │  │          ├─interceptor
-│  │  │          │      LoginInterceptor.class
-│  │  │          │      
-│  │  │          ├─mapper
-│  │  │          │      DemandMapper.class
-│  │  │          │      OrderMapper.class
-│  │  │          │      UserMapper.class
-│  │  │          │      
-│  │  │          └─service
-│  │  │                  DemandService.class
-│  │  │                  OrderService.class
-│  │  │                  UserService.class
-│  │  │                  
-│  │  └─templates
-│  │      │  login.html
-│  │      │  register.html
-│  │      │  
-│  │      ├─fragments
-│  │      │      footer.html
-│  │      │      header.html
-│  │      │      
-│  │      ├─order
-│  │      │      order_list.html
-│  │      │      
-│  │      ├─parent
-│  │      │      demand_form.html
-│  │      │      my_demands.html
-│  │      │      
-│  │      └─teacher
-│  │              available_demands.html
-│  │              
-│  └─generated-sources
-│      └─annotations
-└─tutor-platform
-    │  .gitattributes
-    │  .gitignore
-    │  API.md
-    │  mvnw
-    │  mvnw.cmd
-    │  pom.xml
-    │  README.md
-    │  
-    ├─.mvn
-    │  └─wrapper
-    │          maven-wrapper.properties
-    │          
-    └─src
-        ├─main
-        │  ├─java
-        │  │  └─com
-        │  │      └─tutor
-        │  │          └─tutor_platform
-        │  │              │  TutorPlatformApplication.java
-        │  │              │  
-        │  │              ├─config
-        │  │              │      LoginInterceptor.java
-        │  │              │      WebConfig.java
-        │  │              │      
-        │  │              ├─controller
-        │  │              │      OrderController.java
-        │  │              │      TeacherController.java
-        │  │              │      TestController.java
-        │  │              │      UserController.java
-        │  │              │      
-        │  │              ├─entity
-        │  │              │      User.java
-        │  │              │      
-        │  │              ├─mapper
-        │  │              │      UserMapper.java
-        │  │              │      
-        │  │              └─service
-        │  │                      UserService.java
-        │  │                      
-        │  └─resources
-        │          application.properties
-        │          application.yml
-        │          
-        └─test
-            └─java
-                └─com
-                    └─tutor
-                        └─tutor_platform
+|   .gitignore
+|   db.sql
+|   pom.xml
+|   README.md
+|   Test.java
+|   目录结构.txt
+|   
++---.idea
+|   |   compiler.xml
+|   |   dataSources.local.xml
+|   |   dataSources.xml
+|   |   encodings.xml
+|   |   jarRepositories.xml
+|   |   misc.xml
+|   |   vcs.xml
+|   |   workspace.xml
+|   |   
+|   \---dataSources
+|       |   6ad034f8-24a2-492a-9c47-8b8c5bcddbfe.xml
+|       |   data_sources_history.xml
+|       |   
+|       \---6ad034f8-24a2-492a-9c47-8b8c5bcddbfe
+|           \---storage_v2
+|               \---_src_
+|                   \---schema
+|                           information_schema.FNRwLQ.meta
+|                           mysql.osA4Bg.meta
+|                           performance_schema.kIw0nw.meta
+|                           sys.zb4BAA.meta
+|                           
++---.vscode
+|       settings.json
+|       
++---docs
+|   \---plan
+|           项目计划书.md
+|           
++---src
+|   \---main
+|       +---java
+|       |   \---com
+|       |       \---example
+|       |           \---tutorplatform
+|       |               |   TutorPlatformApplication.java
+|       |               |   
+|       |               +---config
+|       |               |       WebConfig.java
+|       |               |       
+|       |               +---controller
+|       |               |       AuthController.java
+|       |               |       OrderController.java
+|       |               |       ParentController.java
+|       |               |       TeacherController.java
+|       |               |       
+|       |               +---entity
+|       |               |       Demand.java
+|       |               |       Order.java
+|       |               |       User.java
+|       |               |       
+|       |               +---interceptor
+|       |               |       LoginInterceptor.java
+|       |               |       
+|       |               +---mapper
+|       |               |       DemandMapper.java
+|       |               |       OrderMapper.java
+|       |               |       UserMapper.java
+|       |               |       
+|       |               \---service
+|       |                       DemandService.java
+|       |                       OrderService.java
+|       |                       UserService.java
+|       |                       
+|       \---resources
+|           |   application.properties
+|           |   structure.txt
+|           |   
+|           \---templates
+|               |   index.html
+|               |   login.html
+|               |   register.html
+|               |   
+|               +---fragments
+|               |       footer.html
+|               |       header.html
+|               |       
+|               +---order
+|               |       order_list.html
+|               |       
+|               +---parent
+|               |       demand_form.html
+|               |       my_demands.html
+|               |       
+|               \---teacher
+|                       available_demands.html
+|                       
++---target
+|   +---classes
+|   |   |   application.properties
+|   |   |   structure.txt
+|   |   |   
+|   |   +---com
+|   |   |   \---example
+|   |   |       \---tutorplatform
+|   |   |           |   TutorPlatformApplication.class
+|   |   |           |   
+|   |   |           +---config
+|   |   |           |       WebConfig.class
+|   |   |           |       
+|   |   |           +---controller
+|   |   |           |       AuthController.class
+|   |   |           |       OrderController.class
+|   |   |           |       ParentController.class
+|   |   |           |       TeacherController.class
+|   |   |           |       
+|   |   |           +---entity
+|   |   |           |       Demand.class
+|   |   |           |       Order.class
+|   |   |           |       User.class
+|   |   |           |       
+|   |   |           +---interceptor
+|   |   |           |       LoginInterceptor.class
+|   |   |           |       
+|   |   |           +---mapper
+|   |   |           |       DemandMapper.class
+|   |   |           |       OrderMapper.class
+|   |   |           |       UserMapper.class
+|   |   |           |       
+|   |   |           \---service
+|   |   |                   DemandService.class
+|   |   |                   OrderService.class
+|   |   |                   UserService.class
+|   |   |                   
+|   |   \---templates
+|   |       |   index.html
+|   |       |   login.html
+|   |       |   register.html
+|   |       |   
+|   |       +---fragments
+|   |       |       footer.html
+|   |       |       header.html
+|   |       |       
+|   |       +---order
+|   |       |       order_list.html
+|   |       |       
+|   |       +---parent
+|   |       |       demand_form.html
+|   |       |       my_demands.html
+|   |       |       
+|   |       \---teacher
+|   |               available_demands.html
+|   |               
+|   +---generated-sources
+|   |   \---annotations
+|   \---maven-status
+|       \---maven-compiler-plugin
+|           \---compile
+|               \---default-compile
+|                       createdFiles.lst
+|                       inputFiles.lst
+|                       
++---test
+|   |   测试样例.md
+|   |   测试计划.md
+|   |   
+|   \---asset
+|           bug1家长端—我的订单.jpg
+|           bug2教师端—需求大厅无法跳转.jpg
+|           bug3教师端—我的订单.jpg
+|           bug4教师端—需求大厅无法接单.jpg
+|           家长端—发布需求.png
+|           家长端—我的需求.png
+|           教师端—需求大厅.png
+|           注册—我是家长.png
+|           注册—我是老师.png
+|           登录.png
+|           首页.png
+|           
+\---tutor-platform
+    |   .gitattributes
+    |   .gitignore
+    |   API.md
+    |   mvnw
+    |   mvnw.cmd
+    |   pom.xml
+    |   README.md
+    |   
+    +---.mvn
+    |   \---wrapper
+    |           maven-wrapper.properties
+    |           
+    \---src
+        +---main
+        |   +---java
+        |   |   \---com
+        |   |       \---tutor
+        |   |           \---tutor_platform
+        |   |               |   TutorPlatformApplication.java
+        |   |               |   
+        |   |               +---config
+        |   |               |       LoginInterceptor.java
+        |   |               |       WebConfig.java
+        |   |               |       
+        |   |               +---controller
+        |   |               |       OrderController.java
+        |   |               |       TeacherController.java
+        |   |               |       TestController.java
+        |   |               |       UserController.java
+        |   |               |       
+        |   |               +---entity
+        |   |               |       User.java
+        |   |               |       
+        |   |               +---mapper
+        |   |               |       UserMapper.java
+        |   |               |       
+        |   |               \---service
+        |   |                       UserService.java
+        |   |                       
+        |   \---resources
+        |           application.properties
+        |           application.yml
+        |           
+        \---test
+            \---java
+                \---com
+                    \---tutor
+                        \---tutor_platform
                                 TutorPlatformApplicationTests.java
                                 
