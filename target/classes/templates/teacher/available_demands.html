@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('可接单需求')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container mt-4 mb-5">
+    <h2 class="mb-4">待接单的家教需求</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover bg-white shadow-sm rounded overflow-hidden">
+            <thead class="table-dark">
+            <tr><th>科目</th><th>年级</th><th>价格</th><th>描述</th><th class="text-center">操作</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="d : ${demands}">
+                <td th:text="${d.subject}" class="fw-bold"></td>
+                <td th:text="${d.grade}"></td>
+                <td th:text="${d.price + ' 元/小时'}"></td>
+                <td th:text="${d.description}"></td>
+                <td class="text-center">
+                    <form method="post" th:action="@{/teacher/accept}">
+                        <input type="hidden" name="demandId" th:value="${d.id}">
+                        <button type="submit" class="btn btn-sm btn-success px-3">立即接单</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer"></th:block>
+</body>
+</html>

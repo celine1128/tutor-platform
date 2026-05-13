@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('我的订单')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container mt-4 mb-5">
+    <h2 class="mb-4">我的订单列表</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover bg-white shadow-sm rounded overflow-hidden">
+            <thead class="table-dark">
+            <tr>
+                <th>需求科目</th>
+                <th>年级</th>
+                <th>价格</th>
+                <th th:if="${currentRole == 'parent'}">接单老师</th>
+                <th th:if="${currentRole == 'teacher'}">家长</th>
+                <th>订单状态</th>
+                <th>创建时间</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${demandMap[order.id].subject}" class="fw-bold"></td>
+                <td th:text="${demandMap[order.id].grade}"></td>
+                <td th:text="${demandMap[order.id].price}"></td>
+                <td th:if="${currentRole == 'parent'}" th:text="${userNicknameMap[order.teacherId]}"></td>
+                <td th:if="${currentRole == 'teacher'}" th:text="${userNicknameMap[order.parentId]}"></td>
+                <td>
+                    <span th:if="${order.status == 0}" class="badge bg-warning text-dark rounded-pill px-3 py-2">⏳ 待确认</span>
+                    <span th:if="${order.status == 1}" class="badge bg-success rounded-pill px-3 py-2">✅ 已完成</span>
+                </td>
+                <td th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td class="text-center">
+                    <form th:if="${currentRole == 'parent' and order.status == 0}" method="post" th:action="@{/order/complete}">
+                        <input type="hidden" name="orderId" th:value="${order.id}">
+                        <button type="submit" class="btn btn-sm btn-primary px-3">确认完成</button>
+                    </form>
+                    <span th:if="${currentRole == 'parent' and order.status == 1}" class="text-muted small">订单已关闭</span>
+                    <span th:if="${currentRole == 'teacher' and order.status == 0}" class="text-muted small italic">等待家长确认</span>
+                    <span th:if="${currentRole == 'teacher' and order.status == 1}" class="text-muted small text-success">服务已结束</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer"></th:block>
+</body>
+</html>
