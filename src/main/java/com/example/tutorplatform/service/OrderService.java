@@ -34,16 +34,57 @@ public class OrderService {
         return true;
     }
 
-    // 家长确认完成
+    // 家长确认完成：只有该订单对应的家长可以确认完成
     @Transactional
-    public boolean completeOrder(Long orderId) {
+    public boolean completeOrder(Long orderId, Long parentId) {
         Order order = orderMapper.selectById(orderId);
-        if (order != null && order.getStatus() == 0) {
-            order.setStatus(1);
-            order.setCompleteTime(LocalDateTime.now());
-            return orderMapper.updateById(order) > 0;
+
+        if (order == null) {
+            return false;
         }
-        return false;
+
+        // 只能确认自己的订单
+        if (!order.getParentId().equals(parentId)) {
+            return false;
+        }
+
+        // 只有待确认订单可以完成
+        if (order.getStatus() != 0) {
+            return false;
+        }
+
+        order.setStatus(1);
+        order.setCompleteTime(LocalDateTime.now());
+        return orderMapper.updateById(order) > 0;
+    }
+    // 取消订单：家长或老师都可以取消待确认订单，取消后需求重新回到待接单状态
+    @Transactional
+    public boolean cancelOrder(Long orderId, Long userId) {
+        Order order = orderMapper.selectById(orderId);
+
+        if (order == null) {
+            return false;
+        }
+
+        // 只有待确认订单可以取消
+        if (order.getStatus() != 0) {
+            return false;
+        }
+
+        // 只能由订单相关的家长或老师取消
+        if (!order.getParentId().equals(userId) && !order.getTeacherId().equals(userId)) {
+            return false;
+        }
+
+        order.setStatus(2);
+        boolean updated = orderMapper.updateById(order) > 0;
+
+        // 订单取消后，让原需求重新回到待接单状态
+        if (updated) {
+            demandService.updateStatus(order.getDemandId(), 0);
+        }
+
+        return updated;
     }
 
     // 查询家长收到的订单
