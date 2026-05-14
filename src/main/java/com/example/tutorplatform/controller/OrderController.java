@@ -63,8 +63,24 @@ public class OrderController {
     }
 
     @PostMapping("/complete")
-    public String completeOrder(@RequestParam Long orderId) {
-        orderService.completeOrder(orderId);
+    public String completeOrder(@RequestParam Long orderId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user != null && "parent".equals(user.getRole())) {
+            orderService.completeOrder(orderId, user.getId());
+        }
+
+        return "redirect:/order/list";
+    }
+
+    @PostMapping("/cancel")
+    public String cancelOrder(@RequestParam Long orderId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            orderService.cancelOrder(orderId, user.getId());
+        }
+
         return "redirect:/order/list";
     }
 }

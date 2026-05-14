@@ -12,7 +12,7 @@ public class Order {
     private Long demandId;
     private Long teacherId;
     private Long parentId;
-    private Integer status;  // 0-待确认 1-已完成
+    private Integer status;  // 0-待确认 1-已完成 2-已取消
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     private LocalDateTime completeTime;
