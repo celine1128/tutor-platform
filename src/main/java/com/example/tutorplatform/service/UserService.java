@@ -46,7 +46,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         User user = this.getOne(wrapper);
 
         if (user == null) {
-            return null; // 用户不存在
+            return null;
         }
 
         // 2. 验证密码是否匹配
@@ -55,7 +55,26 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return user; // 登录成功
         }
 
-        return null; // 密码错误
+        return null;
+    }
+
+    // 重置密码
+    public boolean resetPassword(String phone, String newPassword) {
+        // 根据手机号查询用户
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getPhone, phone);
+        User user = this.getOne(wrapper);
+
+        if (user == null) {
+            return false;
+        }
+
+        // 使用 BCrypt 加密新密码
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(newPassword));
+
+        // 更新数据库
+        return this.updateById(user);
     }
 
     /**

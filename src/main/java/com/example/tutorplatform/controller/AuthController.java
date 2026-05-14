@@ -65,7 +65,42 @@ public class AuthController {
         }
         return "redirect:/login";
     }
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage() {
+        return "forgot-password";
+    }
 
+    @PostMapping("/forgot-password")
+    public String resetPassword(@RequestParam String phone,
+                                @RequestParam String newPassword,
+                                @RequestParam String confirmPassword,
+                                Model model) {
+
+        if (phone == null || phone.trim().isEmpty()) {
+            model.addAttribute("error", "手机号不能为空");
+            return "forgot-password";
+        }
+
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            model.addAttribute("error", "新密码不能为空");
+            return "forgot-password";
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "两次输入的密码不一致");
+            return "forgot-password";
+        }
+
+        boolean success = userService.resetPassword(phone, newPassword);
+
+        if (!success) {
+            model.addAttribute("error", "手机号不存在");
+            return "forgot-password";
+        }
+
+        model.addAttribute("success", "密码重置成功，请重新登录");
+        return "login";
+    }
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
