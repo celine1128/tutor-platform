@@ -72,4 +72,10 @@ public class DemandService {
         wrapper.eq(Demand::getStatus, 0);
         return demandMapper.selectCount(wrapper);
     }
+    // 统计家长发布的需求总数
+    public long countDemandsByParent(Long parentId) {
+        LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Demand::getParentId, parentId);
+        return demandMapper.selectCount(wrapper);
+    }
 }

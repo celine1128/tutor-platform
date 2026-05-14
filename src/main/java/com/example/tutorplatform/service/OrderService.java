@@ -106,4 +106,22 @@ public class OrderService {
     public Order getById(Long id) {
         return orderMapper.selectById(id);
     }
+    // 统计老师接单总数
+    public long countOrdersByTeacher(Long teacherId) {
+        LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Order::getTeacherId, teacherId);
+        return orderMapper.selectCount(wrapper);
+    }
+
+    // 统计订单完成总数 (状态为1)
+    public long countCompletedOrders(Long userId, String role) {
+        LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<>();
+        if ("teacher".equals(role)) {
+            wrapper.eq(Order::getTeacherId, userId);
+        } else {
+            wrapper.eq(Order::getParentId, userId);
+        }
+        wrapper.eq(Order::getStatus, 1);
+        return orderMapper.selectCount(wrapper);
+    }
 }
