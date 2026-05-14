@@ -3,7 +3,25 @@
 <head th:replace="fragments/header :: head('可接单需求')"></head>
 <body>
 <div th:replace="fragments/header :: navbar"></div>
+<div class="search-bar" style="margin-bottom: 20px;">
+    <form action="/teacher/available" method="get" class="form-inline">
+        <input type="text" name="subject" th:value="${subject}" placeholder="搜索科目" class="form-control">
 
+        <select name="grade" class="form-control">
+            <option value="">所有年级</option>
+            <option value="小学" th:selected="${grade == '小学'}">小学</option>
+            <option value="初中" th:selected="${grade == '初中'}">初中</option>
+            <option value="高中" th:selected="${grade == '高中'}">高中</option>
+        </select>
+
+        <input type="number" name="minPrice" th:value="${minPrice}" placeholder="最低价格" class="form-control">
+        <span>-</span>
+        <input type="number" name="maxPrice" th:value="${maxPrice}" placeholder="最高价格" class="form-control">
+
+        <button type="submit" class="btn btn-primary">筛选</button>
+        <a href="/teacher/available" class="btn btn-default">重置</a>
+    </form>
+</div>
 <div class="container mt-4 mb-5">
     <h2 class="mb-4">待接单的家教需求</h2>
 

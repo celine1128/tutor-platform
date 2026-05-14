@@ -1,20 +1,176 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('首页 - 家教管理平台')"></head>
+<head th:replace="fragments/header :: head('首页 - 家教管理平台')">
+</head>
+<style>
+    /* 统计区域容器布局 */
+    .stats-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 40px auto;
+        max-width: 1000px;
+        padding: 0 20px;
+    }
+
+    /* 统计卡片基础样式 */
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px 35px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* 柔和阴影 */
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        text-decoration: none;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-icon-wrapper {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-right: 20px;
+    }
+
+    /* 教师卡片配色（蓝色系） */
+    .teacher-card .stat-icon-wrapper { background-color: #e7f1ff; color: #007bff; }
+    .teacher-card .stat-value { color: #007bff; }
+
+    /* 需求卡片配色（绿色系） */
+    .demand-card .stat-icon-wrapper { background-color: #e9f7ef; color: #28a745; }
+    .demand-card .stat-value { color: #28a745; }
+
+    .stat-content { display: flex; flex-direction: column; }
+    .stat-value {
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+    .stat-label {
+        color: #6c757d;
+        font-size: 15px;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+    /* --- 新增：个人看板样式 --- */
+    .dashboard-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 20px;
+        padding: 35px;
+        margin-bottom: 30px;
+        box-shadow: 0 15px 35px rgba(118, 75, 162, 0.25);
+        border: none;
+    }
+    .dashboard-stat-item {
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .dashboard-stat-item:last-child {
+        border-right: none;
+    }
+    .dashboard-value {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 5px;
+        line-height: 1;
+    }
+    .dashboard-label {
+        font-size: 1rem;
+        font-weight: 300;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .dashboard-title {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+    }
+
+    @media (max-width: 768px) {
+        .stats-container { flex-direction: column; }
+        .dashboard-stat-item { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 0; }
+        .dashboard-stat-item:last-child { border-bottom: none; }
+    }
+</style>
 <body>
 <div th:replace="fragments/header :: navbar"></div>
 
-<div class="container mt-5 text-center">
+<div class="stats-container">
+    <div class="stat-card teacher-card">
+        <div class="stat-icon-wrapper"><span>👨‍🏫</span></div>
+        <div class="stat-content">
+            <span class="stat-value" th:text="${teacherCount}">0</span>
+            <span class="stat-label">注册教师人数</span>
+        </div>
+    </div>
+
+    <div class="stat-card demand-card">
+        <div class="stat-icon-wrapper"><span>📝</span></div>
+        <div class="stat-content">
+            <span class="stat-value" th:text="${demandCount}">0</span>
+            <span class="stat-label">当前待接单需求</span>
+        </div>
+    </div>
+</div>
+
+<div th:if="${session.user != null}" class="container mt-4">
+    <div class="dashboard-card card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="dashboard-title mb-0">
+                    <span class="badge bg-white text-primary me-3 px-3 py-2">个人中心看板</span>
+                    <span th:text="${'欢迎回来，' + session.user.nickname + '！'}"></span>
+                </h5>
+                <span class="badge rounded-pill bg-light text-dark px-3" th:text="${session.user.role == 'parent' ? '家长身份' : '教员身份'}">身份</span>
+            </div>
+
+            <div class="row text-center align-items: center;">
+                <div th:if="${session.user.role == 'parent'}" class="col-6 dashboard-stat-item">
+                    <p class="dashboard-value" th:text="${myDemandCount}">0</p>
+                    <p class="dashboard-label">累计发布需求</p>
+                </div>
+
+                <div th:if="${session.user.role == 'teacher'}" class="col-6 dashboard-stat-item">
+                    <p class="dashboard-value" th:text="${myOrderCount}">0</p>
+                    <p class="dashboard-label">累计接单数</p>
+                </div>
+
+                <div class="col-6 dashboard-stat-item">
+                    <p class="dashboard-value" th:text="${myFinishCount}">0</p>
+                    <p class="dashboard-label">已成交订单</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 text-center">
     <div class="p-5 mb-4 bg-white rounded-3 shadow-sm border">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold text-primary mb-3">欢迎来到校园家教平台</h1>
             <p class="col-md-8 mx-auto fs-4 text-muted">
                 连接优质大学生老师与有需求的家长，让辅导更简单、更透明。
             </p>
+
             <div class="mt-4" th:if="${session.user == null}">
                 <a th:href="@{/register}" class="btn btn-primary btn-lg px-4 me-2">免费注册</a>
                 <a th:href="@{/login}" class="btn btn-outline-secondary btn-lg px-4">立即登录</a>
             </div>
+
             <div class="mt-4" th:if="${session.user != null}">
                 <a th:if="${session.user.role == 'parent'}" th:href="@{/parent/demand/form}" class="btn btn-success btn-lg px-4">发布新需求</a>
                 <a th:if="${session.user.role == 'teacher'}" th:href="@{/teacher/demands}" class="btn btn-info btn-lg px-4 text-white">去大厅接单</a>

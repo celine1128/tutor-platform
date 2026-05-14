@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('我的订单')"></head>
+<head th:replace="~{fragments/header :: head('我的订单')}"></head>
 <body>
-<div th:replace="fragments/header :: navbar"></div>
+<div th:replace="~{fragments/header :: navbar}"></div>
 
 <div class="container mt-4 mb-5">
     <h2 class="mb-4">我的订单列表</h2>
@@ -21,26 +21,99 @@
                 <th class="text-center">操作</th>
             </tr>
             </thead>
+
             <tbody>
-            <tr th:each="order : ${orders}">
-                <td th:text="${demandMap[order.id].subject}" class="fw-bold"></td>
-                <td th:text="${demandMap[order.id].grade}"></td>
-                <td th:text="${demandMap[order.id].price}"></td>
-                <td th:if="${currentRole == 'parent'}" th:text="${userNicknameMap[order.teacherId]}"></td>
-                <td th:if="${currentRole == 'teacher'}" th:text="${userNicknameMap[order.parentId]}"></td>
-                <td>
-                    <span th:if="${order.status == 0}" class="badge bg-warning text-dark rounded-pill px-3 py-2">⏳ 待确认</span>
-                    <span th:if="${order.status == 1}" class="badge bg-success rounded-pill px-3 py-2">✅ 已完成</span>
+            <!-- 空状态提示 -->
+            <tr th:if="${#lists.isEmpty(orders)}">
+                <td colspan="7" class="text-center text-muted py-4">
+                    暂无订单记录
                 </td>
-                <td th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+
+            <!-- 订单列表 -->
+            <tr th:each="order : ${orders}" th:with="d=${demandMap[order.id]}">
+                <td class="fw-bold" th:text="${d != null ? d.subject : '未知需求'}"></td>
+
+                <td th:text="${d != null ? d.grade : '暂无'}"></td>
+
+                <td th:text="${d != null && d.price != null ? d.price + ' 元/小时' : '暂无'}"></td>
+
+                <!-- 家长视角：显示接单老师 -->
+                <td th:if="${currentRole == 'parent'}"
+                    th:text="${userNicknameMap[order.teacherId] != null ? userNicknameMap[order.teacherId] : '未知老师'}">
+                </td>
+
+                <!-- 老师视角：显示家长 -->
+                <td th:if="${currentRole == 'teacher'}"
+                    th:text="${userNicknameMap[order.parentId] != null ? userNicknameMap[order.parentId] : '未知家长'}">
+                </td>
+
+                <!-- 订单状态 -->
+                <td>
+                    <span th:if="${order.status == 0}"
+                          class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                        ⏳ 待确认
+                    </span>
+
+                    <span th:if="${order.status == 1}"
+                          class="badge bg-success rounded-pill px-3 py-2">
+                        ✅ 已完成
+                    </span>
+
+                    <span th:if="${order.status == 2}"
+                          class="badge bg-secondary rounded-pill px-3 py-2">
+                        已取消
+                    </span>
+                </td>
+
+                <!-- 创建时间 -->
+                <td>
+                    <span th:if="${order.createTime != null}"
+                          th:text="${#temporals.format(order.createTime, 'yyyy-MM-dd HH:mm')}">
+                    </span>
+
+                    <span th:if="${order.createTime == null}" class="text-muted">
+                        暂无
+                    </span>
+                </td>
+
+                <!-- 操作栏 -->
                 <td class="text-center">
-                    <form th:if="${currentRole == 'parent' and order.status == 0}" method="post" th:action="@{/order/complete}">
-                        <input type="hidden" name="orderId" th:value="${order.id}">
-                        <button type="submit" class="btn btn-sm btn-primary px-3">确认完成</button>
-                    </form>
-                    <span th:if="${currentRole == 'parent' and order.status == 1}" class="text-muted small">订单已关闭</span>
-                    <span th:if="${currentRole == 'teacher' and order.status == 0}" class="text-muted small italic">等待家长确认</span>
-                    <span th:if="${currentRole == 'teacher' and order.status == 1}" class="text-muted small text-success">服务已结束</span>
+                    <!-- 待确认订单：可操作 -->
+                    <div th:if="${order.status == 0}" class="d-flex gap-2 justify-content-center">
+
+                        <!-- 家长可以确认完成 -->
+                        <form th:if="${currentRole == 'parent'}"
+                              method="post"
+                              th:action="@{/order/complete}">
+                            <input type="hidden" name="orderId" th:value="${order.id}">
+                            <button type="submit"
+                                    class="btn btn-sm btn-primary px-3"
+                                    onclick="return confirm('确认该订单已经完成了吗？');">
+                                确认完成
+                            </button>
+                        </form>
+
+                        <!-- 家长和老师都可以取消待确认订单 -->
+                        <form method="post" th:action="@{/order/cancel}">
+                            <input type="hidden" name="orderId" th:value="${order.id}">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger px-3"
+                                    onclick="return confirm('确定要取消该订单吗？取消后需求将重新回到待接单状态。');">
+                                取消订单
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 已完成订单 -->
+                    <span th:if="${order.status == 1}" class="text-muted small text-success">
+                        服务已结束
+                    </span>
+
+                    <!-- 已取消订单 -->
+                    <span th:if="${order.status == 2}" class="text-muted small">
+                        订单已取消
+                    </span>
                 </td>
             </tr>
             </tbody>
@@ -48,6 +121,6 @@
     </div>
 </div>
 
-<th:block th:replace="fragments/footer"></th:block>
+<th:block th:replace="~{fragments/footer}"></th:block>
 </body>
 </html>
