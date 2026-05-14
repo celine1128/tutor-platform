@@ -1,6 +1,7 @@
 package com.example.tutorplatform.controller;
 
 import com.example.tutorplatform.entity.User;
+import com.example.tutorplatform.service.DemandService; // 1. 必须添加这个导入 [cite: 11]
 import com.example.tutorplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DemandService demandService; // 2. 必须注入这个服务，否则无法调用
 
     @GetMapping("/login")
     public String loginPage() {
@@ -63,5 +67,18 @@ public class AuthController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/login";
+    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+        // 获取统计数据
+        long teacherCount = userService.countTeachers();
+        long demandCount = demandService.countAvailableDemands();
+
+        // 传递给前端
+        model.addAttribute("teacherCount", teacherCount);
+        model.addAttribute("demandCount", demandCount);
+
+        return "index"; // 返回 index.html [cite: 13]
     }
 }

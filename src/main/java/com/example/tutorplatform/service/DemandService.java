@@ -66,4 +66,10 @@ public class DemandService {
         }
         return false;
     }
+    // 统计待接单的需求总数
+    public long countAvailableDemands() {
+        LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Demand::getStatus, 0);
+        return demandMapper.selectCount(wrapper);
+    }
 }
