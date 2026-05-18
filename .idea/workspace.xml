@@ -42,11 +42,11 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.TutorPlatformApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "latest1",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "项目",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
@@ -87,6 +87,7 @@
       <updated>1777914025375</updated>
       <workItem from="1777914035390" duration="1941000" />
       <workItem from="1777916014630" duration="1607000" />
+      <workItem from="1779087368240" duration="1624000" />
     </task>
     <servers />
   </component>
